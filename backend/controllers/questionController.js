@@ -2,7 +2,7 @@ import Question from '../models/questionModel.js';
 
 export async function getQuestions(req, res) {
   try {
-    const questions = await Question.find().populate('user', 'email');
+    const questions = await Question.find().populate('userId', 'email');
     return res.status(200).json(questions);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -12,12 +12,12 @@ export async function getQuestions(req, res) {
 export async function createQuestion(req, res) {
   try {
     const { title, content } = req.body;
-    const user = req.user;
+    const userId = req.user._id;
 
     const newQuestion = new Question({
       title,
       content,
-      user: user._id,
+      userId,
     });
     await newQuestion.save();
 
@@ -30,9 +30,9 @@ export async function createQuestion(req, res) {
 export async function deleteQuestion(req, res) {
   try {
     const { id } = req.params;
-    const user = req.user;
+    const userId = req.user._id;
 
-    const question = await Question.findOne({ _id: id, user: user._id });
+    const question = await Question.findOne({ _id: id, userId });
     if (!question) {
       return res.status(404).json({ message: 'Question not found' });
     }
