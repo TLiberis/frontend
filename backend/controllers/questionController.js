@@ -32,12 +32,10 @@ export async function deleteQuestion(req, res) {
     const { id } = req.params;
     const userId = req.user._id;
 
-    const question = await Question.findOne({ _id: id, userId });
+    const question = await Question.findByIdAndDelete({ _id: id, userId });
     if (!question) {
       return res.status(404).json({ message: 'Question not found' });
     }
-
-    await question.remove();
 
     return res.status(200).json({ message: 'Question deleted successfully' });
   } catch (error) {
