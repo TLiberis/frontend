@@ -19,6 +19,8 @@ export default function PostQuestion() {
         console.log(response.data);
         setPostStatus('Question posting failed');
       }
+      setTitle('');
+      setContent('');
     } catch (error) {
       console.error(error.message);
     }
