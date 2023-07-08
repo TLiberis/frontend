@@ -37,12 +37,10 @@ export async function deleteAnswer(req, res) {
     const { id } = req.params;
     const user = req.user;
 
-    const answer = await Answer.findOne({ _id: id, user: user._id });
+    const answer = await Answer.findByIdAndDelete({ _id: id, user: user._id });
     if (!answer) {
       return res.status(404).json({ message: 'Answer not found' });
     }
-
-    await answer.remove();
 
     return res.status(200).json({ message: 'Answer deleted successfully' });
   } catch (error) {

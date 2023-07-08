@@ -9,6 +9,19 @@ export async function getQuestions(req, res) {
   }
 }
 
+export async function getQuestionById(req, res) {
+  try {
+    const { id } = req.params;
+    const question = await Question.findById(id).populate('userId', 'email');
+    if (!question) {
+      return res.status(404).json({ message: 'Question not found' });
+    }
+    return res.status(200).json(question);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
 export async function createQuestion(req, res) {
   try {
     const { title, content } = req.body;

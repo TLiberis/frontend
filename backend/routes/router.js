@@ -3,6 +3,7 @@ import { userLogin, userRegister } from '../controllers/userController.js';
 import {
   createQuestion,
   deleteQuestion,
+  getQuestionById,
   getQuestions,
 } from '../controllers/questionController.js';
 import { validateToken } from '../middleware/authUser.js';
@@ -18,6 +19,7 @@ router.post('/register', userRegister);
 router.post('/login', userLogin);
 
 router.get('/questions', getQuestions);
+router.get('/question/:id', getQuestionById);
 router.post('/question', validateToken, createQuestion);
 router.delete('/question/:id', validateToken, deleteQuestion);
 
