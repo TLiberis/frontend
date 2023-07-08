@@ -18,6 +18,7 @@ export default function NavBar() {
   function logoutHandle() {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
+    window.location.reload();
   }
 
   return (

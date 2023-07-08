@@ -2,30 +2,22 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:4000';
 
-export async function getQuestions() {
+export async function getAnswers(questionId) {
   try {
-    const response = await axios.get(`${API_URL}/questions`);
+    const response = await axios.get(
+      `${API_URL}/question/${questionId}/answers`
+    );
     return response.data;
   } catch (error) {
     console.error(error);
   }
 }
 
-export async function getQuestionById(questionId) {
-  try {
-    const response = await axios.get(`${API_URL}/question/${questionId}`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export async function postQuestion(title, content, token) {
+export async function createAnswer(questionId, content, token) {
   try {
     const response = await axios.post(
-      `${API_URL}/question`,
+      `${API_URL}/question/${questionId}/answers`,
       {
-        title,
         content,
       },
       {
@@ -40,9 +32,9 @@ export async function postQuestion(title, content, token) {
   }
 }
 
-export async function deleteQuestion(questionId, token) {
+export async function deleteAnswer(answerId, token) {
   try {
-    const response = await axios.delete(`${API_URL}/question/${questionId}`, {
+    const response = await axios.delete(`${API_URL}/answer/${answerId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

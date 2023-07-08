@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getQuestions, deleteQuestion } from '../../../api-calls/question';
+import { Link } from 'react-router-dom';
 
 export default function AllQuestions() {
   const [questions, setQuestions] = useState([]);
@@ -32,12 +33,14 @@ export default function AllQuestions() {
     <div>
       <h2>All Questions</h2>
       {questions.map((question) => (
-        <div key={question._id}>
-          <h3>{question.title}</h3>
-          <p>{question.content}</p>
-          <p>Posted by: {question.userId.email}</p>
-          <button onClick={() => handleDelete(question._id)}>Delete</button>
-        </div>
+        <Link to={`/question/${question._id}/answers`} key={question._id}>
+          <div>
+            <h3>{question.title}</h3>
+            <p>{question.content}</p>
+            <p>Posted by: {question.userId.email}</p>
+            <button onClick={() => handleDelete(question._id)}>Delete</button>
+          </div>
+        </Link>
       ))}
     </div>
   );

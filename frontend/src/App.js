@@ -5,6 +5,7 @@ import PostQuestion from './components/Questions/PostQuestion/PostQuestion';
 import LoginForm from './components/User/LoginForm/LoginForm';
 import RegisterForm from './components/User/RegisterForm/RegisterForm';
 import NavBar from './components/NavBar/NavBar';
+import SelectedQuestion from './components/Questions/SelectedQuestion/SelectedQuestion';
 
 function App() {
   const isLoggedIn = localStorage.getItem('token');
@@ -26,6 +27,12 @@ function App() {
           <Route
             path="/post-question"
             element={isLoggedIn ? <PostQuestion /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/question/:id/answers"
+            element={
+              isLoggedIn ? <SelectedQuestion /> : <Navigate to="/login" />
+            }
           />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
