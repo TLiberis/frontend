@@ -62,4 +62,8 @@ export const DeleteButton = styled.button`
   border-radius: 4px;
   padding: 6px 12px;
   cursor: pointer;
+
+  :hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
 `;

@@ -46,7 +46,7 @@ export default function AllQuestions() {
         ) : (
           questions.map((question) => (
             <CardContainer key={question._id}>
-              <Question>Question: </Question>
+              <Question>Question title: </Question>
               <Title>{question.title}</Title>
               <PostedBy>Posted by: {question.userId.email}</PostedBy>
               <ReadMoreLink to={`/question/${question._id}/answers`}>

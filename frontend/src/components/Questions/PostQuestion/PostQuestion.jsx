@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import { postQuestion } from '../../../api-calls/question';
+import {
+  ContentTextarea,
+  Form,
+  Heading,
+  StatusMessage,
+  SubmitButton,
+  TitleInput,
+} from './post-question.styled';
 
 export default function PostQuestion() {
   const [title, setTitle] = useState('');
@@ -27,21 +35,21 @@ export default function PostQuestion() {
   }
 
   return (
-    <form onSubmit={handlePost}>
-      <h2>Post a Question</h2>
-      <input
+    <Form onSubmit={handlePost}>
+      <Heading>Post a Question</Heading>
+      <TitleInput
         type="text"
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <textarea
+      <ContentTextarea
         placeholder="Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
-      ></textarea>
-      <button type="submit">Post Question</button>
-      <p>{postStatus}</p>
-    </form>
+      ></ContentTextarea>
+      <SubmitButton type="submit">Post Question</SubmitButton>
+      <StatusMessage>{postStatus}</StatusMessage>
+    </Form>
   );
 }

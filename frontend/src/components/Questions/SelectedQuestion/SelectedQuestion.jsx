@@ -6,6 +6,20 @@ import {
   getAnswers,
   deleteAnswer,
 } from '../../../api-calls/answer';
+import {
+  AnswerContainer,
+  AnswerContent,
+  AnswerDeleteButton,
+  AnswerForm,
+  AnswerSubmitButton,
+  AnswerTextarea,
+  AnswerUser,
+  Container,
+  Heading,
+  PostedBy,
+  QuestionContent,
+  QuestionTitle,
+} from './selected-question.styled';
 
 export default function SelectedQuestion() {
   const { id } = useParams();
@@ -17,7 +31,8 @@ export default function SelectedQuestion() {
   useEffect(() => {
     fetchQuestion();
     fetchAnswers();
-  });
+    // eslint-disable-next-line
+  }, []);
 
   async function fetchQuestion() {
     try {
@@ -69,32 +84,36 @@ export default function SelectedQuestion() {
   }
 
   return (
-    <div>
-      <h2>Selected Question</h2>
-      <h3>Title: {question.title}</h3>
-      <p>Content: {question.content}</p>
-      <p>Posted by: {question.userId.email}</p>
+    <Container>
+      <Heading>Selected Question</Heading>
+      <QuestionTitle>Title: {question.title}</QuestionTitle>
+      <QuestionContent>Question: "{question.content}"</QuestionContent>
+      <PostedBy>Posted by: {question.userId.email}</PostedBy>
+      <hr />
 
-      <h3>Answers</h3>
       {answers.map((answer) => (
-        <div key={answer._id}>
-          <p>{answer.content}</p>
-          <p>Posted by: {answer.user.email}</p>
-          <button onClick={() => handleAnswerDelete(answer._id)}>Delete</button>
-        </div>
+        <AnswerContainer key={answer._id}>
+          <AnswerUser>{answer.user.email} answered:</AnswerUser>
+          <AnswerContent>"{answer.content}"</AnswerContent>
+
+          <AnswerDeleteButton onClick={() => handleAnswerDelete(answer._id)}>
+            Delete
+          </AnswerDeleteButton>
+          <hr />
+        </AnswerContainer>
       ))}
 
-      <form onSubmit={handleAnswerSubmit}>
-        <textarea
+      <AnswerForm onSubmit={handleAnswerSubmit}>
+        <AnswerTextarea
           value={answerContent}
           onChange={(event) => setAnswerContent(event.target.value)}
           placeholder="Enter your answer..."
           required
-        ></textarea>
-        <button type="submit" disabled={isLoading}>
+        ></AnswerTextarea>
+        <AnswerSubmitButton type="submit" disabled={isLoading}>
           {isLoading ? 'Submitting...' : 'Submit Answer'}
-        </button>
-      </form>
-    </div>
+        </AnswerSubmitButton>
+      </AnswerForm>
+    </Container>
   );
 }
