@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { getQuestions, deleteQuestion } from '../../../api-calls/question';
-import { Link } from 'react-router-dom';
+import {
+  CardContainer,
+  DeleteButton,
+  Heading,
+  PostedBy,
+  Question,
+  ReadMoreLink,
+  Title,
+  Wrapper,
+} from './all-questions.styled';
 
 export default function AllQuestions() {
   const [questions, setQuestions] = useState([]);
@@ -29,21 +38,27 @@ export default function AllQuestions() {
   }
 
   return (
-    <div>
-      <h2>All Questions</h2>
-      {questions.length === 0 ? (
-        <p>No questions yet. You can post a new one.</p>
-      ) : (
-        questions.map((question) => (
-          <div key={question._id}>
-            <h3>{question.title}</h3>
-            <p>{question.content}</p>
-            <p>Posted by: {question.userId.email}</p>
-            <Link to={`/question/${question._id}/answers`}>Read more</Link>
-            <button onClick={() => handleDelete(question._id)}>Delete</button>
-          </div>
-        ))
-      )}
-    </div>
+    <>
+      <Heading>All Questions</Heading>
+      <Wrapper>
+        {questions.length === 0 ? (
+          <p>No questions yet. You can post a new one.</p>
+        ) : (
+          questions.map((question) => (
+            <CardContainer key={question._id}>
+              <Question>Question: </Question>
+              <Title>{question.title}</Title>
+              <PostedBy>Posted by: {question.userId.email}</PostedBy>
+              <ReadMoreLink to={`/question/${question._id}/answers`}>
+                Read more
+              </ReadMoreLink>
+              <DeleteButton onClick={() => handleDelete(question._id)}>
+                Delete
+              </DeleteButton>
+            </CardContainer>
+          ))
+        )}
+      </Wrapper>
+    </>
   );
 }
