@@ -62,6 +62,12 @@ export default function SelectedQuestion() {
   async function handleAnswerSubmit(event) {
     event.preventDefault();
 
+    if (!localStorage.getItem('token')) {
+      window.alert('You need to login first!');
+      setAnswerContent('');
+      return;
+    }
+
     setIsLoading(true);
 
     try {

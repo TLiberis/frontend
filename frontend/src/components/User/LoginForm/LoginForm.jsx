@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { loginUser } from '../../../api-calls/user';
 import { useNavigate } from 'react-router-dom';
+import {
+  Form,
+  FormButton,
+  FormHeading,
+  FormInput,
+  FormStatus,
+} from './login-form.styled';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -27,22 +34,22 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <h2>Login</h2>
-      <input
+    <Form onSubmit={handleLogin}>
+      <FormHeading>Login</FormHeading>
+      <FormInput
         type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <input
+      <FormInput
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Login</button>
-      <p>{loginStatus}</p>
-    </form>
+      <FormButton type="submit">Login</FormButton>
+      <FormStatus>{loginStatus}</FormStatus>
+    </Form>
   );
 }

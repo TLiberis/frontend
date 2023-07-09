@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import { registerUser } from '../../../api-calls/user';
+import {
+  Form,
+  FormButton,
+  FormHeading,
+  FormInput,
+} from './register-form.styled';
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
@@ -17,21 +23,21 @@ export default function RegisterForm() {
     }
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <input
+    <Form onSubmit={handleSubmit}>
+      <FormHeading>Register</FormHeading>
+      <FormInput
         type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <input
+      <FormInput
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Register</button>
-    </form>
+      <FormButton type="submit">Register</FormButton>
+    </Form>
   );
 }
