@@ -28,12 +28,7 @@ function App() {
             path="/post-question"
             element={isLoggedIn ? <PostQuestion /> : <Navigate to="/login" />}
           />
-          <Route
-            path="/question/:id/answers"
-            element={
-              isLoggedIn ? <SelectedQuestion /> : <Navigate to="/login" />
-            }
-          />
+          <Route path="/question/:id/answers" element={<SelectedQuestion />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </>

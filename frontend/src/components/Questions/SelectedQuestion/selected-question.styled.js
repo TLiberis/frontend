@@ -35,14 +35,19 @@ export const AnswerContent = styled.p`
 export const AnswerUser = styled.p`
   font-size: 16px;
   font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 `;
 
 export const AnswerDeleteButton = styled.button`
   background-color: #ff4f4f;
   color: #fff;
+  font-size: 18px;
+  display: flex;
   border: none;
   border-radius: 4px;
-  padding: 6px 12px;
+  padding: 4px 10px;
   cursor: pointer;
 
   :hover {
@@ -74,4 +79,30 @@ export const AnswerSubmitButton = styled.button`
   :hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
+`;
+
+export const ReactButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: whitesmoke;
+  color: gray;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+
+  :hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+export const LikeButton = styled(ReactButton)`
+  background-color: #e9f2fe;
+  color: #0077cc;
+`;
+
+export const DislikeButton = styled(ReactButton)`
+  background-color: #fee9e9;
+  color: #ff4f4f;
 `;

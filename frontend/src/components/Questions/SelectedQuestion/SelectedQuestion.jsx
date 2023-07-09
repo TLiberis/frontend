@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getQuestionById } from '../../../api-calls/question';
 import { useParams } from 'react-router-dom';
+import { BiSolidLike, BiSolidDislike } from 'react-icons/bi';
+import { TiDelete } from 'react-icons/ti';
 import {
   createAnswer,
   getAnswers,
@@ -15,10 +17,13 @@ import {
   AnswerTextarea,
   AnswerUser,
   Container,
+  DislikeButton,
   Heading,
+  LikeButton,
   PostedBy,
   QuestionContent,
   QuestionTitle,
+  ReactButton,
 } from './selected-question.styled';
 
 export default function SelectedQuestion() {
@@ -27,10 +32,12 @@ export default function SelectedQuestion() {
   const [answerContent, setAnswerContent] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [answers, setAnswers] = useState([]);
+  const [selectedReactions, setSelectedReactions] = useState({});
 
   useEffect(() => {
     fetchQuestion();
     fetchAnswers();
+    loadSelectedReactions();
     // eslint-disable-next-line
   }, []);
 
@@ -61,7 +68,7 @@ export default function SelectedQuestion() {
       const token = localStorage.getItem('token');
       await createAnswer(question._id, answerContent, token);
       setAnswerContent('');
-      fetchQuestion();
+      fetchAnswers();
     } catch (error) {
       console.error(error);
     }
@@ -79,6 +86,28 @@ export default function SelectedQuestion() {
     }
   }
 
+  function handleReaction(answerId, reaction) {
+    setSelectedReactions((prevReactions) => ({
+      ...prevReactions,
+      [answerId]: reaction,
+    }));
+    saveSelectedReactions();
+  }
+
+  function saveSelectedReactions() {
+    localStorage.setItem(
+      'selectedReactions',
+      JSON.stringify(selectedReactions)
+    );
+  }
+
+  function loadSelectedReactions() {
+    const savedReactions = localStorage.getItem('selectedReactions');
+    if (savedReactions) {
+      setSelectedReactions(JSON.parse(savedReactions));
+    }
+  }
+
   if (!question) {
     return <p>Loading question...</p>;
   }
@@ -93,12 +122,34 @@ export default function SelectedQuestion() {
 
       {answers.map((answer) => (
         <AnswerContainer key={answer._id}>
-          <AnswerUser>{answer.user.email} answered:</AnswerUser>
+          <AnswerUser>
+            {answer.user.email} answered:
+            {selectedReactions[answer._id] === 'like' ? (
+              <LikeButton>
+                <BiSolidLike />
+              </LikeButton>
+            ) : (
+              <ReactButton onClick={() => handleReaction(answer._id, 'like')}>
+                <BiSolidLike />
+              </ReactButton>
+            )}
+            {selectedReactions[answer._id] === 'dislike' ? (
+              <DislikeButton>
+                <BiSolidDislike />
+              </DislikeButton>
+            ) : (
+              <ReactButton
+                onClick={() => handleReaction(answer._id, 'dislike')}
+              >
+                <BiSolidDislike />
+              </ReactButton>
+            )}
+            <AnswerDeleteButton onClick={() => handleAnswerDelete(answer._id)}>
+              <TiDelete />
+            </AnswerDeleteButton>
+          </AnswerUser>
           <AnswerContent>"{answer.content}"</AnswerContent>
 
-          <AnswerDeleteButton onClick={() => handleAnswerDelete(answer._id)}>
-            Delete
-          </AnswerDeleteButton>
           <hr />
         </AnswerContainer>
       ))}
