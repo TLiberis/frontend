@@ -18,6 +18,7 @@ export const CardContainer = styled.div`
   min-height: 150px;
   background-color: #fff;
   border-radius: 6px;
+  border: 1px solid #f48024;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 16px;
   margin-bottom: 16px;

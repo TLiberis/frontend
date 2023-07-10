@@ -42,11 +42,13 @@ export default function PostQuestion() {
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        required
       />
       <ContentTextarea
         placeholder="Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
+        required
       ></ContentTextarea>
       <SubmitButton type="submit">Post Question</SubmitButton>
       <StatusMessage>{postStatus}</StatusMessage>

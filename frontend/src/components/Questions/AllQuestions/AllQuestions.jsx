@@ -34,6 +34,12 @@ export default function AllQuestions() {
         alert('You have to log in to delete a question');
         return;
       }
+      const confirmDelete = window.confirm(
+        'Are you sure you want to delete this question?'
+      );
+      if (!confirmDelete) {
+        return;
+      }
       await deleteQuestion(questionId, token);
       fetchQuestions();
     } catch (error) {
