@@ -15,10 +15,6 @@ const answerSchema = new mongoose.Schema({
     ref: 'Question',
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
 });
 
 export default mongoose.model('Answer', answerSchema);

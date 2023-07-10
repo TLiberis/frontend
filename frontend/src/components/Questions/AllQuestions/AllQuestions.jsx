@@ -30,6 +30,10 @@ export default function AllQuestions() {
   async function handleDelete(questionId) {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        alert('You have to log in to delete a question');
+        return;
+      }
       await deleteQuestion(questionId, token);
       fetchQuestions();
     } catch (error) {

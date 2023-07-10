@@ -40,6 +40,7 @@ export const SubmitButton = styled.button`
 `;
 
 export const StatusMessage = styled.p`
+  text-align: center;
   margin-top: 16px;
   font-weight: bold;
 `;

@@ -93,6 +93,11 @@ export default function SelectedQuestion() {
   }
 
   function handleReaction(answerId, reaction) {
+    if (!localStorage.getItem('token')) {
+      window.alert('You need to login first!');
+      return;
+    }
+
     setSelectedReactions((prevReactions) => ({
       ...prevReactions,
       [answerId]: reaction,

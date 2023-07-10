@@ -29,6 +29,7 @@ export default function LoginForm() {
       navigate('/');
       window.location.reload();
     } catch (error) {
+      alert('Wrong email or password, try again');
       console.error(error.message);
     }
   };
@@ -41,12 +42,14 @@ export default function LoginForm() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        required
       />
       <FormInput
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required
       />
       <FormButton type="submit">Login</FormButton>
       <FormStatus>{loginStatus}</FormStatus>
