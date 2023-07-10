@@ -98,18 +98,18 @@ export default function SelectedQuestion() {
       return;
     }
 
-    setSelectedReactions((prevReactions) => ({
-      ...prevReactions,
-      [answerId]: reaction,
-    }));
-    saveSelectedReactions();
+    setSelectedReactions((prevReactions) => {
+      const updatedReactions = {
+        ...prevReactions,
+        [answerId]: reaction,
+      };
+      saveSelectedReactions(updatedReactions);
+      return updatedReactions;
+    });
   }
 
-  function saveSelectedReactions() {
-    localStorage.setItem(
-      'selectedReactions',
-      JSON.stringify(selectedReactions)
-    );
+  function saveSelectedReactions(reactions) {
+    localStorage.setItem('selectedReactions', JSON.stringify(reactions));
   }
 
   function loadSelectedReactions() {
